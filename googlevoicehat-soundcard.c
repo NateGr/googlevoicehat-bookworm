@@ -33,7 +33,8 @@ static int snd_rpi_googlevoicehat_soundcard_hw_params(
 	struct snd_pcm_hw_params *params)
 {
 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+	// struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
 
 	unsigned int sample_bits =
 		snd_pcm_format_physical_width(params_format(params));
@@ -99,9 +100,9 @@ static int snd_rpi_googlevoicehat_soundcard_probe(struct platform_device *pdev)
 	return ret;
 }
 
-static int snd_rpi_googlevoicehat_soundcard_remove(struct platform_device *pdev)
+static void snd_rpi_googlevoicehat_soundcard_remove(struct platform_device *pdev)
 {
-	return snd_soc_unregister_card(&snd_rpi_googlevoicehat_soundcard);
+	snd_soc_unregister_card(&snd_rpi_googlevoicehat_soundcard);
 }
 
 static const struct of_device_id snd_rpi_googlevoicehat_soundcard_of_match[] = {
